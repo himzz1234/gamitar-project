@@ -7,7 +7,7 @@ export default function SocketProvider({ children }) {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const sock = io("http://localhost:8080");
+    const sock = io("https://gamitar-project.onrender.com/");
     setSocket(sock);
   }, []);
 
