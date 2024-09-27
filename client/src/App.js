@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import Grid from "./components/Grid";
 import { SocketContext } from "./context/SocketContext";
+import { PiUsersThreeFill } from "react-icons/pi";
+import { IoTimeOutline } from "react-icons/io5";
 
 function App() {
   const [count, setCount] = useState(60);
@@ -43,11 +45,19 @@ function App() {
     <div className="main">
       <div>
         <div className="main-header">
-          <h3>Online users ({currentOnline.length})</h3>
+          <div style={{ display: "flex", alignItems: "center", columnGap: 10 }}>
+            <PiUsersThreeFill size={25} color="green" />
+            <h3>{currentOnline.length}</h3>
+          </div>
           {hasSelected && (
-            <p style={{ color: "red", fontWeight: "600" }}>
-              {formatTime(count)}
-            </p>
+            <div
+              style={{ display: "flex", alignItems: "center", columnGap: 5 }}
+            >
+              <IoTimeOutline size={20} color="red" />
+              <p style={{ color: "red", fontWeight: "600" }}>
+                {formatTime(count)}
+              </p>
+            </div>
           )}
         </div>
         <Grid {...{ hasSelected, setHasSelected }} />

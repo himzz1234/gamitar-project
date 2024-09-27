@@ -21,10 +21,28 @@ function Grid({ hasSelected, setHasSelected }) {
   };
 
   useEffect(() => {
-    if (socket)
-      socket.on("current-state", (data) => {
+    if (socket) {
+      socket.on("initial-state", (data) => {
         setGridState(data);
       });
+
+      socket.on("current-state", (data) => {
+        const { row, col, unicodeCharacter } = data;
+        setGridState((prevGrid) => {
+          return {
+            ...prevGrid,
+            [`${row}-${col}`]: unicodeCharacter,
+          };
+        });
+      });
+    }
+
+    return () => {
+      if (socket) {
+        socket.off("initial-state");
+        socket.off("current-state");
+      }
+    };
   }, [socket]);
 
   return (
