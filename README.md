@@ -5,8 +5,8 @@ Follow these steps to set up and run the project locally.
 
 1. Clone the repository
 ```
-git clone https://github.com/yourusername/multiplayer-grid-app.git
-cd gamitar
+git clone https://github.com/yourusername/gamitar-project.git
+cd gamitar-project
 ```
 
 2. Install dependencies
