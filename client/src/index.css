@@ -11,12 +11,20 @@ body {
 .main {
   display: flex;
   align-items: center;
-  padding-top: 10px;
+  padding-top: 5px;
   justify-content: center;
   flex-direction: column;
   min-height: 100vh;
   background: #83bd3f;
   column-gap: 40px;
+}
+
+.hide {
+  display: none !important;
+}
+
+.show {
+  display: flex !important;
 }
 
 .main-header {
@@ -30,6 +38,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  column-gap: 20px;
 }
 
 .cell {

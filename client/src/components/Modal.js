@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from "react";
 import { SocketContext } from "../context/SocketContext";
 
-export default function Modal({ block, setHasSelected, setOpen }) {
+export default function Modal({ block, setHasSelected, open, setOpen }) {
   const inputRef = useRef(null);
   const { socket } = useContext(SocketContext);
 
@@ -20,7 +20,10 @@ export default function Modal({ block, setHasSelected, setOpen }) {
   };
 
   return (
-    <div onClick={() => setOpen(false)} className="modal-container">
+    <div
+      onClick={() => setOpen(false)}
+      className={`modal-container ${!open ? "hide" : "show"}`}
+    >
       <div onClick={(e) => e.stopPropagation()} className="modal">
         <form onSubmit={handleSubmit}>
           <input

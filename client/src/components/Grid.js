@@ -26,6 +26,11 @@ function Grid({ hasSelected, setHasSelected }) {
         setGridState(data);
       });
 
+      socket.on("grid-history", (data) => {
+        console.log(data);
+        // setHistory((prev) => ({ ...prev, data }));
+      });
+
       socket.on("current-state", (data) => {
         const { row, col, unicodeCharacter } = data;
         setGridState((prevGrid) => {
@@ -76,7 +81,7 @@ function Grid({ hasSelected, setHasSelected }) {
         ))}
       </div>
 
-      {open ? <Modal {...{ block, setHasSelected, setOpen }} /> : null}
+      <Modal {...{ block, setHasSelected, open, setOpen }} />
     </>
   );
 }

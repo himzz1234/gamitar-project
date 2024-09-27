@@ -1,9 +1,10 @@
 const app = require("express")();
+const moment = require("moment");
 
 const gridState = {},
   connected = [];
 
-const gridSnapshots = new Map();
+const gridSnapshots = {};
 
 const server = app.listen(8080, () => {
   console.log("Server is up and running!");
@@ -21,25 +22,23 @@ const io = require("socket.io")(server, {
   },
 });
 
-function recordOrUpdateGridSnapshot(timestamp, update) {
-  console.log(gridSnapshots);
-  if (gridSnapshots.has(timestamp)) {
-    const existingSnapshot = gridSnapshots.get(timestamp);
-
+function recordOrUpdateGridSnapshot(timestamp, update, io) {
+  if (timestamp in gridSnapshots) {
+    const existingSnapshot = gridSnapshots[timestamp];
     existingSnapshot.updates.push(update);
-
-    existingSnapshot.grid = JSON.parse(JSON.stringify(gridState));
   } else {
-    gridSnapshots.set(timestamp, {
-      grid: JSON.parse(JSON.stringify(gridState)),
+    gridSnapshots[timestamp] = {
       updates: [update],
-    });
+    };
   }
+
+  io.emit("grid-history", gridSnapshots);
 }
 
 io.on("connection", (socket) => {
   connected.push(socket.id);
   io.emit("initial-state", gridState);
+  io.emit("grid-history", gridSnapshots);
 
   io.emit("online-users", connected);
   socket.on("cell-selected", (data) => {
@@ -52,10 +51,10 @@ io.on("connection", (socket) => {
 
       io.emit("current-state", { row, col, unicodeCharacter });
 
-      const currentTimestamp = new Date().toISOString().slice(0, 19);
+      const currentTimestamp = moment().format("DD/MM/YY, h:mm:ss a");
       const update = { row, col, unicodeCharacter, id: socket.id };
 
-      recordOrUpdateGridSnapshot(currentTimestamp, update);
+      recordOrUpdateGridSnapshot(currentTimestamp, update, io);
     }
   });
 
