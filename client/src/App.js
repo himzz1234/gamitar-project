@@ -4,7 +4,7 @@ import { SocketContext } from "./context/SocketContext";
 import { PiUsersThreeFill } from "react-icons/pi";
 import { IoTimeOutline } from "react-icons/io5";
 import { MdManageHistory } from "react-icons/md";
-import GridHistory from "./components/GridHistory";
+import HistoryModal from "./components/HistoryModal";
 
 function App() {
   const [count, setCount] = useState(60);
@@ -78,14 +78,14 @@ function App() {
               }}
               onClick={() => setOpen(true)}
             >
-              <MdManageHistory size={20} />
+              <MdManageHistory size={24} />
             </button>
           </div>
           <Grid {...{ hasSelected, setHasSelected }} />
         </div>
       </div>
 
-      <GridHistory {...{ open, setOpen }} />
+      <HistoryModal {...{ open, setOpen }} />
     </>
   );
 }

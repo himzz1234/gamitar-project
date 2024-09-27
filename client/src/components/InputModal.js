@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from "react";
 import { SocketContext } from "../context/SocketContext";
 
-export default function Modal({ block, setHasSelected, open, setOpen }) {
+export default function InputModal({ block, setHasSelected, open, setOpen }) {
   const inputRef = useRef(null);
   const { socket } = useContext(SocketContext);
 

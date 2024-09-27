@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { SocketContext } from "../context/SocketContext";
 
-export default function GridHistory({ open, setOpen }) {
+export default function HistoryModal({ open, setOpen }) {
   const [history, setHistory] = useState({});
   const { socket } = useContext(SocketContext);
 

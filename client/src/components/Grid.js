@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { SocketContext } from "../context/SocketContext";
-import Modal from "./Modal";
+import InputModal from "./InputModal";
 
 const rows = 10,
   columns = 10;
@@ -24,11 +24,6 @@ function Grid({ hasSelected, setHasSelected }) {
     if (socket) {
       socket.on("initial-state", (data) => {
         setGridState(data);
-      });
-
-      socket.on("grid-history", (data) => {
-        console.log(data);
-        // setHistory((prev) => ({ ...prev, data }));
       });
 
       socket.on("current-state", (data) => {
@@ -81,9 +76,9 @@ function Grid({ hasSelected, setHasSelected }) {
         ))}
       </div>
 
-      <Modal {...{ block, setHasSelected, open, setOpen }} />
+      <InputModal {...{ block, setHasSelected, open, setOpen }} />
     </>
   );
 }
 
-export default React.memo(Grid);
+export default Grid;
